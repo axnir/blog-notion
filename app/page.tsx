@@ -1,17 +1,10 @@
-import Image from 'next/image';
+import { getPostList } from '@/app/common/service/notion';
 
-export default function Home() {
+export default async function Home() {
+  // const posts = await getPostList();
+
   return (
-    <main className="h-screen flex flex-col items-center justify-center">
-      <div>
-        <Image
-          src="/vercel.svg"
-          alt="Vercels Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+    <main className="h-screen flex flex-col items-center">
       <h1 className="mt-10 text-3xl font-bold underline">Hello world!</h1>
     </main>
   );
