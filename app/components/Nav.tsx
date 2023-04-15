@@ -22,10 +22,6 @@ const Link = ({
 };
 
 export default function Nav({ className }: { className?: string }) {
-  const handleItemClick = () => {
-    console.log('clicked');
-  };
-
   return (
     <NavigationMenu.Root className={className}>
       <NavigationMenu.List className="flex h-10">

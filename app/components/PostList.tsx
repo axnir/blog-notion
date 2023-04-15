@@ -17,6 +17,7 @@ function PostItem({
   cover,
   id,
 }: PostListItem) {
+  console.log('cover', cover);
   const href = `/post/${id}`;
 
   return (

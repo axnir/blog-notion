@@ -4,7 +4,7 @@ import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoint
 type PageObjectProperties = PageObjectResponse['properties'];
 
 export const getPostIdForDatabase = (properties: PageObjectProperties) => {
-  let id: string = '';
+  let id = '';
 
   if (properties['Page'].type !== 'rich_text') {
     return id;
