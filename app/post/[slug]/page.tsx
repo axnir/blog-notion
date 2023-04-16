@@ -1,10 +1,14 @@
-import { getPostContent } from '@/app/common/service/notion';
+// import { getPostContent } from '@/app/common/service/notion';
 import Image from 'next/image';
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const content = await getPostContent(params.slug).catch(() => ({}));
-
-  console.log('content', content);
+export default async function PostSlug({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  // const content = await getPostContent(params.slug).catch(() => ({}));
+  const content = {};
+  console.log('content', content, params);
 
   if (!Object.keys(content).length) {
     return null;

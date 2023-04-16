@@ -1,11 +1,13 @@
+import { PostCover } from './../types/notion';
 import to from 'await-to-js';
 import {
   getPostCoverForPage,
-  getPostTitleInfoForPage,
+  getPostTitleForPage,
   getPostIdForDatabase,
   getPostTagsForDatabase,
   getPostStatusForDatabase,
   getPostDescriptionForDatabase,
+  getImageSize,
 } from '@/app/common/utils/notion';
 import type {
   PageObjectResponse,
@@ -23,7 +25,7 @@ const NOTION_HEADER = {
   'Notion-Version': NOTION_VERSION,
 };
 
-export const getPostInfo = async (pageId: string) => {
+export const getPostInfo = async (pageId: string, needCover = false) => {
   if (!pageId) {
     throw new Error('pageId is required');
   }
@@ -44,10 +46,19 @@ export const getPostInfo = async (pageId: string) => {
     throw new Error(result.message);
   }
 
+  const cover: PostCover = {} as PostCover;
+  if (needCover) {
+    const url = getPostCoverForPage(result);
+    const { height, width } = await getImageSize(url);
+    cover.url = url;
+    cover.height = height;
+    cover.width = width;
+  }
+
   return {
+    cover,
     createTime: result.created_time,
-    cover: getPostCoverForPage(result),
-    titleInfo: getPostTitleInfoForPage(result),
+    title: getPostTitleForPage(result),
   };
 };
 

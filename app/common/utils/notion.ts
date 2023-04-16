@@ -1,4 +1,5 @@
-import { PostStatus, PostTitleInfo } from '@/app/common/types/notion';
+import probeImageSize from 'probe-image-size';
+import { PostCover, PostStatus, PostTitle } from '@/app/common/types/notion';
 import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 type PageObjectProperties = PageObjectResponse['properties'];
@@ -31,7 +32,7 @@ export const getPostDescriptionForDatabase = (
   }
 
   if (properties['Description'].rich_text) {
-    return properties['Description'].rich_text[0].plain_text;
+    return properties['Description'].rich_text?.[0]?.plain_text;
   }
 
   return '';
@@ -63,21 +64,21 @@ export const getPostCoverForPage = (page: PageObjectResponse) => {
   return page.cover.file.url;
 };
 
-export const getPostTitleInfoForPage = (page: PageObjectResponse) => {
+export const getPostTitleForPage = (page: PageObjectResponse) => {
   if (!page.icon && !page.properties.title) {
-    return {} as PostTitleInfo;
+    return {} as PostTitle;
   }
 
-  const titleInfo: PostTitleInfo = {} as PostTitleInfo;
+  const title: PostTitle = {} as PostTitle;
 
-  titleInfo.type = page.icon?.type;
+  title.type = page.icon?.type;
 
   if (page.icon?.type === 'emoji') {
-    titleInfo.icon = page.icon.emoji;
+    title.icon = page.icon.emoji;
   } else if (page.icon?.type === 'external') {
-    titleInfo.icon = page.icon.external.url;
+    title.icon = page.icon.external.url;
   } else if (page.icon?.type === 'file') {
-    titleInfo.icon = page.icon.file.url;
+    title.icon = page.icon.file.url;
   }
 
   if (
@@ -85,8 +86,22 @@ export const getPostTitleInfoForPage = (page: PageObjectResponse) => {
     page.properties.title.type === 'title' &&
     page.properties.title.title[0]
   ) {
-    titleInfo.text = page.properties.title.title[0].plain_text;
+    title.text = page.properties.title.title[0].plain_text;
   }
 
-  return titleInfo;
+  return title;
+};
+
+export const getImageSize = async (
+  url: string
+): Promise<Omit<PostCover, 'url'>> => {
+  try {
+    const result = await probeImageSize(url);
+    return {
+      height: result.height,
+      width: result.width,
+    };
+  } catch (e) {
+    return {};
+  }
 };

@@ -1,14 +1,16 @@
 import { getPostList } from '../common/service/notion';
 import PostList from '../components/PostList';
 
-export default async function Page() {
-  const posts = await getPostList().catch(() => []);
+export default async function Post() {
+  const posts = await getPostList().catch((error) => {
+    console.log('error', error);
 
-  console.log('posts', posts);
+    return [];
+  });
 
   return (
-    <main className="h-screen flex flex-col items-center">
+    <div className="flex flex-col items-center">
       <PostList posts={posts} />
-    </main>
+    </div>
   );
 }

@@ -4,10 +4,16 @@ export const enum PostStatus {
   NOT_STARTED = 'Not started',
 }
 
-export type PostTitleInfo = {
+export type PostTitle = {
   icon?: string;
   text?: string;
   type?: 'emoji' | 'external' | 'file';
+};
+
+export type PostCover = {
+  url: string;
+  height?: number;
+  width?: number;
 };
 
 export type PostListItem = {
@@ -16,6 +22,6 @@ export type PostListItem = {
   status: string;
   description: string;
   createTime: string;
-  cover: string;
-  titleInfo: PostTitleInfo;
+  cover: PostCover;
+  title: PostTitle;
 };

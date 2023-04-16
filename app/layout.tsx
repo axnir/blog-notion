@@ -12,10 +12,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="zh-Hans-CN">
       <body>
-        <main>
-          <Nav className="flex justify-center" />
+        <main className="min-h-screen">
+          <Nav />
           {children}
         </main>
       </body>
