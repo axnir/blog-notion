@@ -3,22 +3,8 @@
 import { usePathname } from 'next/navigation';
 import NextLink from 'next/link';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import classNames from 'classnames';
-
-const NAV_LIST = [
-  {
-    title: '首页',
-    href: '/',
-  },
-  {
-    title: '文章',
-    href: '/post',
-  },
-  {
-    title: '关于',
-    href: '/about',
-  },
-];
+import clsx from 'clsx';
+import SITE_CONFIG from '../../site.config';
 
 const Link = ({
   href,
@@ -50,13 +36,13 @@ export default function Nav({ className }: { className?: string }) {
         href="/"
         className="mr-40 flex items-center text-violet12 font-medium"
       >
-        🐱 Axnir's Blog
+        {SITE_CONFIG.title}
       </NextLink>
       <NavigationMenu.Root
-        className={classNames('z-[99] flex justify-center h-[80px]', className)}
+        className={clsx('z-[99] flex justify-center h-[80px]', className)}
       >
         <NavigationMenu.List className="h-full flex items-center">
-          {NAV_LIST.map((nav) => (
+          {SITE_CONFIG.navList.map((nav) => (
             <NavigationMenu.Item
               key={nav.href}
               className="flex justify-center items-center h-[30%] w-[60px]"

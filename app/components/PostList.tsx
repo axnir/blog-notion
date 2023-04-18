@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { PostListItem } from '../common/types/notion';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 type PostListProps = {
   posts: PostListItem[];
@@ -24,10 +24,7 @@ function PostItem({
   return (
     <Link href={href}>
       <article
-        className={classNames(
-          'w-[650px] rounded-lg bg-slate-100 p-4',
-          className
-        )}
+        className={clsx('w-[650px] rounded-lg bg-slate-100 p-4', className)}
       >
         {cover.url ? (
           <Image

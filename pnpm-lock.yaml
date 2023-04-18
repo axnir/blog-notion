@@ -16,18 +16,15 @@ dependencies:
   await-to-js:
     specifier: ^3.0.0
     version: 3.0.0
-  classnames:
-    specifier: ^2.3.2
-    version: 2.3.2
+  clsx:
+    specifier: ^1.2.1
+    version: 1.2.1
   dayjs:
     specifier: ^1.11.7
     version: 1.11.7
   framer-motion:
     specifier: ^10.11.6
     version: 10.11.6(react-dom@18.2.0)(react@18.2.0)
-  lottie-react:
-    specifier: ^2.4.0
-    version: 2.4.0(react-dom@18.2.0)(react@18.2.0)
   next:
     specifier: 13.2.1
     version: 13.2.1(react-dom@18.2.0)(react@18.2.0)
@@ -1330,10 +1327,6 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /classnames@2.3.2:
-    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
-    dev: false
-
   /clean-stack@2.2.0:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
     engines: {node: '>=6'}
@@ -1374,6 +1367,11 @@ packages:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
     dev: true
+
+  /clsx@1.2.1:
+    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
+    engines: {node: '>=6'}
+    dev: false
 
   /color-convert@1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
@@ -2955,21 +2953,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-
-  /lottie-react@2.4.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-pDJGj+AQlnlyHvOHFK7vLdsDcvbuqvwPZdMlJ360wrzGFurXeKPr8SiRCjLf3LrNYKANQtSsh5dz9UYQHuqx4w==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      lottie-web: 5.11.0
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /lottie-web@5.11.0:
-    resolution: {integrity: sha512-9vSt0AtdOH98GKDXwD5LPfFg9Pcmxt5+1BllAbudKM5iqPxpJnJUfuGaP45OyudDrESCOBgsjnntVUTygBNlzw==}
-    dev: false
 
   /lru-cache@6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
