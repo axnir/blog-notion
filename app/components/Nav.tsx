@@ -1,18 +1,13 @@
 'use client';
 
+import { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import NextLink from 'next/link';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import clsx from 'clsx';
 import SITE_CONFIG from '../../site.config';
 
-const Link = ({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) => {
+const Link = ({ href, children }: { href: string; children: ReactNode }) => {
   const pathname = usePathname();
   const isActive = pathname === href;
 
