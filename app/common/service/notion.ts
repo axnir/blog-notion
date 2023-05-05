@@ -10,6 +10,7 @@ import {
   getImageSize,
 } from '@/app/common/utils/notion';
 import type {
+  ListBlockChildrenResponse,
   PageObjectResponse,
   QueryDatabaseResponse,
 } from '@notionhq/client/build/src/api-endpoints';
@@ -62,11 +63,19 @@ export const getPostInfo = async (pageId: string, needCover = false) => {
   };
 };
 
-export const getPostContent = async (
-  pageId: string
-): Promise<PageObjectResponse> => {
+export const getPostBlockChildren = async (
+  pageId: string,
+  startCursor: string | null
+): Promise<ListBlockChildrenResponse> => {
+  const url = new URL(
+    `/v1/blocks/${pageId}/children`,
+    'https://api.notion.com/'
+  );
+  url.search = startCursor
+    ? `page_size=100&start_cursor=${startCursor}`
+    : 'page_size=100';
   const [error, response] = await to(
-    fetch(`https://api.notion.com/v1/blocks/${pageId}/children?page_size=100`, {
+    fetch(url, {
       method: 'GET',
       headers: NOTION_HEADER,
     })
@@ -82,7 +91,37 @@ export const getPostContent = async (
     throw new Error(result.message);
   }
 
-  return result;
+  return result as ListBlockChildrenResponse;
+};
+
+export const getPostContent = async (
+  pageId: string
+): Promise<ListBlockChildrenResponse['results']> => {
+  let hasMore = true;
+  let error: Error | null = null;
+  let nextCursor: string | null = null;
+  const results: ListBlockChildrenResponse['results'] = [];
+
+  do {
+    try {
+      const result = (await getPostBlockChildren(
+        pageId,
+        nextCursor
+      )) as ListBlockChildrenResponse;
+      results.push(...result.results);
+      hasMore = result.has_more;
+      nextCursor = result.next_cursor;
+    } catch (err) {
+      error = err as Error;
+      hasMore = false;
+    }
+  } while (hasMore);
+
+  if (error) {
+    throw error;
+  }
+
+  return results;
 };
 
 export const getPostList = async (): Promise<PostListItem[]> => {
