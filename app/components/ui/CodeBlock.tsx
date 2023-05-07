@@ -55,13 +55,22 @@ export default async function CodeBlock(
 
   // TODOsupport dark mode
   const lightHtml = renderToHTML('light');
-  // const darkHtml = renderToHTML('dark');
+  const darkHtml = renderToHTML('dark');
 
   return (
-    <div
-      dangerouslySetInnerHTML={{
-        __html: lightHtml,
-      }}
-    />
+    <>
+      <div
+        className="dark:hidden"
+        dangerouslySetInnerHTML={{
+          __html: lightHtml,
+        }}
+      ></div>
+      <div
+        className="hidden dark:block"
+        dangerouslySetInnerHTML={{
+          __html: darkHtml,
+        }}
+      ></div>
+    </>
   );
 }
