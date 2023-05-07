@@ -20,12 +20,12 @@ export default async function PostSlug({
 
   return (
     <article className="h-auto flex justify-center">
-      <p className="w-[1000px] p-6">
+      <div className="w-[1000px] p-6">
         {content.map((block) => {
           switch (block.type) {
-            case 'code':
-              /* @ts-expect-error Server Component */
-              return <CodeBlock key={block.id} {...block.code} />;
+            // case 'code':
+            //   /* @ts-expect-error Server Component */
+            //   return <CodeBlock key={block.id} {...block.code} />;
             case 'paragraph':
               return <ParagraphBlock key={block.id} {...block.paragraph} />;
             case 'image':
@@ -35,7 +35,7 @@ export default async function PostSlug({
               return null;
           }
         })}
-      </p>
+      </div>
     </article>
   );
 }
