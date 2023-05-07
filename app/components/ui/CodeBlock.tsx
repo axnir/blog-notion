@@ -22,10 +22,15 @@ export default async function CodeBlock(
     .map((i) => i.plain_text)
     .join('');
 
-  const tokens = highlighter.codeToThemedTokens(code, language);
+  const lightTokens = highlighter.codeToThemedTokens(
+    code,
+    language,
+    lightTheme
+  );
+  const darkTokens = highlighter.codeToThemedTokens(code, language, darkTheme);
   const renderToHTML = (theme: 'light' | 'dark'): string => {
     const themeName = theme === 'light' ? lightTheme : darkTheme;
-    const html = renderToHtml(tokens, {
+    const html = renderToHtml(theme === 'light' ? lightTokens : darkTokens, {
       fg: highlighter.getForegroundColor(themeName),
       bg: theme === 'light' ? '#f6f8fa' : '#0d1117',
       themeName,
@@ -35,6 +40,13 @@ export default async function CodeBlock(
         },
         code({ children }) {
           return `<code>${children}</code>`;
+        },
+        line({ className, children }) {
+          return `<span class="${className}">${children}</span>`;
+        },
+
+        token({ style, children }) {
+          return `<span style="${style}">${children}</span>`;
         },
       },
     });
