@@ -23,14 +23,14 @@ export default async function PostSlug({
       <div className="w-[1000px] p-6">
         {content.map((block) => {
           switch (block.type) {
-            case 'code':
-              /* @ts-expect-error Server Component */
-              return <CodeBlock key={block.id} {...block.code} />;
+            // case 'code':
+            //   /* @ts-expect-error Server Component */
+            //   return <CodeBlock key={block.id} {...block.code} />;
             case 'paragraph':
               return <ParagraphBlock key={block.id} {...block.paragraph} />;
-            // case 'image':
-            //   /* @ts-expect-error Server Component */
-            //   return <ImageBlock key={block.id} {...block.image} />;
+            case 'image':
+              /* @ts-expect-error Server Component */
+              return <ImageBlock key={block.id} {...block.image} />;
             default:
               return null;
           }
