@@ -1,7 +1,7 @@
-export default async function Home() {
+export default async function Loading() {
   return (
     <div className="h-[50vh] mt-[80px] flex flex-col items-center justify-center">
-      <h1 className="text-3xl font-bold">页面施工中!</h1>
+      <h2 className="font-mono text-lg">加载中...</h2>
     </div>
   );
 }
