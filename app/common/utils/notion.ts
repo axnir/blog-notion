@@ -93,12 +93,3 @@ export const getPostTitleForPage = (page: PageObjectResponse) => {
 
   return title;
 };
-
-export const assertBlockType = (
-  object: BlockObjectResponse
-): 'code' | undefined => {
-  if (object.type === 'code' && object.code?.rich_text?.[0]) {
-    return 'code';
-  }
-  return;
-};

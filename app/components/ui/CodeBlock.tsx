@@ -31,7 +31,7 @@ export default async function CodeBlock(
       themeName,
       elements: {
         pre({ style, children }) {
-          return `<pre class="rounded-md mb-6 p-3 text-sm" style="tab-size: 2; ${style}">${children}</pre>`;
+          return `<pre class="rounded-md my-4 p-6 text-sm" style="tab-size: 2; ${style}">${children}</pre>`;
         },
         code({ children }) {
           return `<code>${children}</code>`;

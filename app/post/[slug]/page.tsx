@@ -1,30 +1,41 @@
-// import { getPostContent } from '@/app/common/service/notion';
-import Image from 'next/image';
+import { getPostContent } from '@/app/common/service/notion';
+import CodeBlock from '@/app/components/ui/CodeBlock';
+import ImageBlock from '@/app/components/ui/ImageBlock';
+import ParagraphBlock from '@/app/components/ui/ParagraphBlock';
+import type { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 export default async function PostSlug({
   params,
 }: {
   params: { slug: string };
 }) {
-  // const content = await getPostContent(params.slug).catch(() => ({}));
-  const content = {};
-  console.log('content', content, params);
+  const content = (await getPostContent(params.slug).catch(
+    () => []
+  )) as BlockObjectResponse[];
 
-  if (!Object.keys(content).length) {
-    return null;
+  // TODOempty
+  if (!content.length) {
+    return '内容为空';
   }
 
   return (
-    <div className="h-screen flex flex-col items-center">
-      <div>
-        <Image
-          src="/vercel.svg"
-          alt="Vercels Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-    </div>
+    <article className="h-auto flex justify-center">
+      <p className="w-[1000px] p-6">
+        {content.map((block) => {
+          switch (block.type) {
+            case 'code':
+              /* @ts-expect-error Server Component */
+              return <CodeBlock key={block.id} {...block.code} />;
+            case 'paragraph':
+              return <ParagraphBlock key={block.id} {...block.paragraph} />;
+            case 'image':
+              /* @ts-expect-error Server Component */
+              return <ImageBlock key={block.id} {...block.image} />;
+            default:
+              return null;
+          }
+        })}
+      </p>
+    </article>
   );
 }
