@@ -24,8 +24,14 @@ export default async function CodeBlock(
     themes: [lightTheme, darkTheme],
     langs: [lang as Lang],
     paths: {
-      languages: `${shikiResourcesPath}/languages/`,
-      themes: `${shikiResourcesPath}/themes/`,
+      languages:
+        process.env.NODE_ENV === 'development'
+          ? undefined
+          : `${shikiResourcesPath}/languages/`,
+      themes:
+        process.env.NODE_ENV === 'development'
+          ? undefined
+          : `${shikiResourcesPath}/themes/`,
     },
   });
 
