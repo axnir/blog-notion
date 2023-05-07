@@ -1,4 +1,5 @@
 import { getHighlighter, Lang, renderToHtml } from 'shiki';
+import * as path from 'path';
 import type {
   CodeBlockObjectResponse,
   TextRichTextItemResponse,
@@ -8,26 +9,32 @@ import SITE_CONFIG from '@/site.config';
 const lightTheme = SITE_CONFIG.codeTheme.light;
 const darkTheme = SITE_CONFIG.codeTheme.dark;
 
+const getShikiResourcesPath = (): string => {
+  return path.join(process.cwd(), 'lib/shiki');
+};
+
 export default async function CodeBlock(
   props: CodeBlockObjectResponse['code']
 ) {
   const { rich_text, language } = props;
+  const lang = language === 'plain text' ? '' : language;
 
+  const shikiResourcesPath = getShikiResourcesPath();
   const highlighter = await getHighlighter({
     themes: [lightTheme, darkTheme],
-    langs: [language as Lang],
+    langs: [lang as Lang],
+    paths: {
+      languages: `${shikiResourcesPath}/languages/`,
+      themes: `${shikiResourcesPath}/themes/`,
+    },
   });
 
   const code = (rich_text as TextRichTextItemResponse[])
     .map((i) => i.plain_text)
     .join('');
 
-  const lightTokens = highlighter.codeToThemedTokens(
-    code,
-    language,
-    lightTheme
-  );
-  const darkTokens = highlighter.codeToThemedTokens(code, language, darkTheme);
+  const lightTokens = highlighter.codeToThemedTokens(code, lang, lightTheme);
+  const darkTokens = highlighter.codeToThemedTokens(code, lang, darkTheme);
   const renderToHTML = (theme: 'light' | 'dark'): string => {
     const themeName = theme === 'light' ? lightTheme : darkTheme;
     const html = renderToHtml(theme === 'light' ? lightTokens : darkTokens, {
@@ -44,7 +51,6 @@ export default async function CodeBlock(
         line({ className, children }) {
           return `<span class="${className}">${children}</span>`;
         },
-
         token({ style, children }) {
           return `<span style="${style}">${children}</span>`;
         },
@@ -56,11 +62,9 @@ export default async function CodeBlock(
   const lightHtml = renderToHTML('light');
   const darkHtml = renderToHTML('dark');
 
-  console.log(lightHtml, darkHtml);
-
   return (
     <>
-      {/* <div
+      <div
         className="dark:hidden"
         dangerouslySetInnerHTML={{
           __html: lightHtml,
@@ -71,8 +75,7 @@ export default async function CodeBlock(
         dangerouslySetInnerHTML={{
           __html: darkHtml,
         }}
-      ></div> */}
-      <div>code block</div>
+      ></div>
     </>
   );
 }

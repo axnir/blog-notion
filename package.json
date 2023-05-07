@@ -5,7 +5,8 @@
   "author": "lxgjzyj@hotmail.com",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "copy": "mkdir -p lib/shiki && cp -r node_modules/shiki/{languages,themes} lib/shiki/",
+    "build": "npm run copy && next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
