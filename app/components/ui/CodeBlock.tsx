@@ -62,6 +62,6 @@ export default async function CodeBlock(
       dangerouslySetInnerHTML={{
         __html: lightHtml,
       }}
-    ></div>
+    />
   );
 }
