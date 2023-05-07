@@ -16,6 +16,10 @@ const SITE_CONFIG = {
       href: '/about',
     },
   ],
+  codeTheme: {
+    light: 'github-light',
+    dark: 'github-dark',
+  },
 };
 
 export default SITE_CONFIG;
