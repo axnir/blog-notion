@@ -1,6 +1,8 @@
-import probeImageSize from 'probe-image-size';
-import { PostCover, PostStatus, PostTitle } from '@/app/common/types/notion';
-import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import { PostStatus, PostTitle } from '@/app/common/types/notion';
+import type {
+  BlockObjectResponse,
+  PageObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 
 type PageObjectProperties = PageObjectResponse['properties'];
 
@@ -92,16 +94,11 @@ export const getPostTitleForPage = (page: PageObjectResponse) => {
   return title;
 };
 
-export const getImageSize = async (
-  url: string
-): Promise<Omit<PostCover, 'url'>> => {
-  try {
-    const result = await probeImageSize(url);
-    return {
-      height: result.height,
-      width: result.width,
-    };
-  } catch (e) {
-    return {};
+export const assertBlockType = (
+  object: BlockObjectResponse
+): 'code' | undefined => {
+  if (object.type === 'code' && object.code?.rich_text?.[0]) {
+    return 'code';
   }
+  return;
 };

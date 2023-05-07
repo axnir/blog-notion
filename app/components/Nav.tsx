@@ -26,7 +26,7 @@ const Link = ({ href, children }: { href: string; children: ReactNode }) => {
 
 export default function Nav({ className }: { className?: string }) {
   return (
-    <div className="sticky top-0 w-full flex items-center justify-center backdrop-blur-sm bg-white bg-opacity-60">
+    <header className="sticky top-0 w-full flex items-center justify-center backdrop-blur-sm bg-white bg-opacity-60">
       <NextLink
         href="/"
         className="mr-40 flex items-center text-violet12 font-medium"
@@ -47,6 +47,6 @@ export default function Nav({ className }: { className?: string }) {
           ))}
         </NavigationMenu.List>
       </NavigationMenu.Root>
-    </div>
+    </header>
   );
 }

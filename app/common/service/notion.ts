@@ -1,5 +1,6 @@
 import { PostCover } from './../types/notion';
 import to from 'await-to-js';
+import { getImageSize } from '../utils';
 import {
   getPostCoverForPage,
   getPostTitleForPage,
@@ -7,8 +8,7 @@ import {
   getPostTagsForDatabase,
   getPostStatusForDatabase,
   getPostDescriptionForDatabase,
-  getImageSize,
-} from '@/app/common/utils/notion';
+} from '../utils/notion';
 import type {
   ListBlockChildrenResponse,
   PageObjectResponse,
