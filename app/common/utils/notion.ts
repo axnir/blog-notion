@@ -1,8 +1,5 @@
 import { PostStatus, PostTitle } from '@/app/common/types/notion';
-import type {
-  BlockObjectResponse,
-  PageObjectResponse,
-} from '@notionhq/client/build/src/api-endpoints';
+import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 type PageObjectProperties = PageObjectResponse['properties'];
 

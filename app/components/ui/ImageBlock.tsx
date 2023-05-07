@@ -14,6 +14,7 @@ export default async function ParagraphBlock(
       src={imgUrl}
       height={imgSize.height}
       width={imgSize.width}
+      loading="lazy"
       alt="post image"
     />
   );
