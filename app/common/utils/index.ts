@@ -10,6 +10,9 @@ export const getImageSize = async (
       width: result.width,
     };
   } catch (e) {
-    return {};
+    return {
+      height: 0,
+      width: 0,
+    };
   }
 };
