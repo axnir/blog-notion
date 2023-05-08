@@ -1,8 +1,8 @@
 import { getPostContent } from '@/app/common/service/notion';
-import CodeBlock from '@/app/components/ui/CodeBlock';
-import HeadingsBlock from '@/app/components/ui/HeadingsBlock';
-import ImageBlock from '@/app/components/ui/ImageBlock';
-import ParagraphBlock from '@/app/components/ui/ParagraphBlock';
+import CodeBlock from '@/app/components/notion/CodeBlock';
+import HeadingsBlock from '@/app/components/notion/HeadingsBlock';
+import ImageBlock from '@/app/components/notion/ImageBlock';
+import ParagraphBlock from '@/app/components/notion/ParagraphBlock';
 import type { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 export const revalidate = 3600;
