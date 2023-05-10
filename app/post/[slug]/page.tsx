@@ -3,6 +3,7 @@ import CodeBlock from '@/app/components/notion/CodeBlock';
 import HeadingsBlock from '@/app/components/notion/HeadingsBlock';
 import ImageBlock from '@/app/components/notion/ImageBlock';
 import ParagraphBlock from '@/app/components/notion/ParagraphBlock';
+import QuoteBlock from '@/app/components/notion/QuoteBlock';
 import type { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 export const revalidate = 3600;
@@ -40,6 +41,8 @@ export default async function PostSlug({
               return <HeadingsBlock key={block.id} {...block} />;
             case 'heading_3':
               return <HeadingsBlock key={block.id} {...block} />;
+            case 'quote':
+              return <QuoteBlock key={block.id} {...block.quote} />;
             default:
               return null;
           }
