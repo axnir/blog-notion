@@ -1,14 +1,11 @@
 import clsx from 'clsx';
-import type {
-  ParagraphBlockObjectResponse,
-  TextRichTextItemResponse,
-} from '@notionhq/client/build/src/api-endpoints';
+import type { TextRichTextItemResponse } from '@notionhq/client/build/src/api-endpoints';
 
-const ParagraphBlockItem = ({
+export default function RichText({
   href,
   text,
   annotations,
-}: TextRichTextItemResponse) => {
+}: TextRichTextItemResponse) {
   const className = clsx({
     'line-through': annotations.strikethrough,
     'font-bold': annotations.bold,
@@ -38,18 +35,4 @@ const ParagraphBlockItem = ({
   }
 
   return <span>{text.content}</span>;
-};
-
-export default function ParagraphBlock(
-  props: ParagraphBlockObjectResponse['paragraph']
-) {
-  const { rich_text } = props;
-
-  return (
-    <>
-      {(rich_text as TextRichTextItemResponse[]).map((text, idx) => (
-        <ParagraphBlockItem key={idx} {...text} />
-      ))}
-    </>
-  );
 }
