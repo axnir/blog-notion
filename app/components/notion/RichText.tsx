@@ -26,6 +26,7 @@ export default function RichText({
     return (
       <a
         href={href}
+        target="_blank"
         className={clsx(
           {
             block: isNewLine,
