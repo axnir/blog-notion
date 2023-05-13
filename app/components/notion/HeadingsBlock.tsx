@@ -28,15 +28,15 @@ export default function HeadingsBlock(props: HeadingProps) {
   }
 
   if (type === 'heading_1') {
-    return <h1 className="font-bold text-xl my-2">{text.current}</h1>;
+    return <h2 className="font-bold text-xl my-4">{text.current}</h2>;
   }
 
   if (type === 'heading_2') {
-    return <h2 className="font-semibold text-lg my-2">{text.current}</h2>;
+    return <h3 className="font-semibold text-lg my-3">{text.current}</h3>;
   }
 
   if (type === 'heading_3') {
-    return <h3 className="font-medium text-base my-2">{text.current}</h3>;
+    return <h4 className="font-medium text-base my-2">{text.current}</h4>;
   }
 
   return null;

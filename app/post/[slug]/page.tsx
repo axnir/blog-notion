@@ -1,4 +1,4 @@
-import { getPostContent } from '@/app/common/service/notion';
+import { getPostContent, getPostInfo } from '@/app/common/service/notion';
 import CodeBlock from '@/app/components/notion/CodeBlock';
 import HeadingsBlock from '@/app/components/notion/HeadingsBlock';
 import ImageBlock from '@/app/components/notion/ImageBlock';
@@ -13,6 +13,7 @@ export default async function PostSlug({
 }: {
   params: { slug: string };
 }) {
+  const { title: titleInfo } = (await getPostInfo(params.slug)) ?? {};
   const content = (await getPostContent(params.slug).catch(
     () => []
   )) as BlockObjectResponse[];
@@ -23,8 +24,9 @@ export default async function PostSlug({
   }
 
   return (
-    <article className="h-auto flex justify-center">
-      <div className="w-[1000px] p-6">
+    <article className="h-auto w-[1000px] mx-auto">
+      <h1 className="font-extrabold text-3xl my-6">{titleInfo.text}</h1>
+      <div>
         {content.map((block) => {
           switch (block.type) {
             case 'code':

@@ -15,13 +15,3 @@ export type PostCover = {
   height?: number;
   width?: number;
 };
-
-export type PostListItem = {
-  id: string;
-  tags: string[];
-  status: string;
-  description: string;
-  createTime: string;
-  cover: PostCover;
-  title: PostTitle;
-};
