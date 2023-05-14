@@ -2,10 +2,11 @@ import clsx from 'clsx';
 import type { TextRichTextItemResponse } from '@notionhq/client/build/src/api-endpoints';
 
 export default function RichText({
+  isNewLine = false,
   href,
   text,
   annotations,
-}: TextRichTextItemResponse) {
+}: TextRichTextItemResponse & { isNewLine?: boolean }) {
   const className = clsx({
     'line-through': annotations.strikethrough,
     'font-bold': annotations.bold,
@@ -25,7 +26,14 @@ export default function RichText({
     return (
       <a
         href={href}
-        className={className}
+        target="_blank"
+        className={clsx(
+          {
+            block: isNewLine,
+          },
+          'text-[#175199]',
+          className
+        )}
         // TODO bg color
         style={annotations.color ? { color: annotations.color } : {}}
       >

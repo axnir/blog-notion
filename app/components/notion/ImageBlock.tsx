@@ -15,7 +15,7 @@ export default async function ParagraphBlock(
       height={imgSize.height}
       width={imgSize.width}
       loading="lazy"
-      alt="post image"
+      alt={props.caption?.[0]?.plain_text ?? 'post image'}
     />
   );
 }
