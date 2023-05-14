@@ -1,5 +1,7 @@
 import Nav from './components/Nav';
+import Footer from './components/Footer';
 import SITE_CONFIG from '@/site.config';
+
 import './globals.css';
 
 export const metadata = {
@@ -19,6 +21,7 @@ export default function RootLayout({
         <main className="min-h-screen">
           <Nav />
           {children}
+          <Footer />
         </main>
       </body>
     </html>

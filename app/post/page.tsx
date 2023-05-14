@@ -13,7 +13,7 @@ export default async function Post() {
   const posts = await getPostList();
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="min-h-[calc(100vh-180px)] flex flex-col items-center">
       {posts.map((post) => (
         <Link key={post.id} href={`/post/${post.id}`}>
           <article className="w-[650px] rounded-lg bg-slate-100 p-4 mb-3">
