@@ -9,7 +9,7 @@ export default function Footer() {
       </div>
       <div>
         Powered by{' '}
-        <a href="nextjs.org" className="text-[#175199]">
+        <a href="https://nextjs.org" className="text-[#175199]">
           Next.js
         </a>
       </div>
