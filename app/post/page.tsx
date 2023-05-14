@@ -3,6 +3,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Tag from '../components/notion/Tag';
 import { getPostList } from '../common/service/notion';
+import SITE_CONFIG from '@/site.config';
+
+export const metadata = {
+  title: SITE_CONFIG.subTitle.post,
+};
 
 export default async function Post() {
   const posts = await getPostList();

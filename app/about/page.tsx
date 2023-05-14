@@ -1,3 +1,9 @@
+import SITE_CONFIG from '@/site.config';
+
+export const metadata = {
+  title: SITE_CONFIG.subTitle.about,
+};
+
 export default async function About() {
   return (
     <div className="h-[50vh] mt-[80px] flex flex-col items-center justify-center">

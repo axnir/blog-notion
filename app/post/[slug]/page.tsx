@@ -1,19 +1,32 @@
+import dayjs from 'dayjs';
 import { getPostContent, getPostInfo } from '@/app/common/service/notion';
 import CodeBlock from '@/app/components/notion/CodeBlock';
 import HeadingsBlock from '@/app/components/notion/HeadingsBlock';
 import ImageBlock from '@/app/components/notion/ImageBlock';
 import ParagraphBlock from '@/app/components/notion/ParagraphBlock';
 import QuoteBlock from '@/app/components/notion/QuoteBlock';
+
+import type { Metadata } from 'next';
 import type { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 export const revalidate = 3600;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const postInfo = await getPostInfo(params.slug);
+  return { title: postInfo.title.text };
+}
 
 export default async function PostSlug({
   params,
 }: {
   params: { slug: string };
 }) {
-  const { title: titleInfo } = (await getPostInfo(params.slug)) ?? {};
+  const { title: titleInfo, createTime: publishTime } =
+    (await getPostInfo(params.slug)) ?? {};
   const content = (await getPostContent(params.slug).catch(
     () => []
   )) as BlockObjectResponse[];
@@ -24,8 +37,9 @@ export default async function PostSlug({
   }
 
   return (
-    <article className="h-auto w-[1000px] mx-auto">
+    <article className="h-auto w-[1000px] mx-auto mb-6">
       <h1 className="font-extrabold text-3xl my-6">{titleInfo.text}</h1>
+      <p className="mx-0 my-2">{dayjs(publishTime).format('YYYY/MM/DD')}</p>
       <div>
         {content.map((block) => {
           switch (block.type) {

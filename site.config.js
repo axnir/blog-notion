@@ -1,7 +1,14 @@
 const SITE_CONFIG = {
-  title: `🐱 Axnir's blog`,
-  description: `Axnir's blog Site`,
-  author: `lxgjzyj@hotmail.com`,
+  title: `🐈 Axnir's Site`,
+  subTitle: {
+    home: 'Site - Axnir',
+    post: 'Blog - Axnir',
+    about: 'About - Axnir',
+  },
+  description: `Axnir's personal site`,
+  author: {
+    name: 'Axnir',
+  },
   navList: [
     {
       title: '首页',
