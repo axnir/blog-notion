@@ -7,7 +7,7 @@ export default function RichText({
   text,
   annotations,
 }: TextRichTextItemResponse & { isNewLine?: boolean }) {
-  const className = clsx({
+  const classes = clsx({
     'line-through': annotations.strikethrough,
     'font-bold': annotations.bold,
     italic: annotations.italic,
@@ -32,7 +32,7 @@ export default function RichText({
             block: isNewLine,
           },
           'text-[#175199]',
-          className
+          classes
         )}
         // TODO bg color
         style={annotations.color ? { color: annotations.color } : {}}
@@ -42,5 +42,16 @@ export default function RichText({
     );
   }
 
-  return <span>{text.content}</span>;
+  return (
+    <span
+      className={clsx(
+        {
+          block: isNewLine,
+        },
+        classes
+      )}
+    >
+      {text.content}
+    </span>
+  );
 }
