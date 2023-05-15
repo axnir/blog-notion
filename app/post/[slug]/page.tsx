@@ -1,10 +1,15 @@
 import dayjs from 'dayjs';
-import { getPostContent, getPostInfo } from '@/app/common/service/notion';
 import CodeBlock from '@/app/components/notion/CodeBlock';
 import HeadingsBlock from '@/app/components/notion/HeadingsBlock';
 import ImageBlock from '@/app/components/notion/ImageBlock';
 import ParagraphBlock from '@/app/components/notion/ParagraphBlock';
 import QuoteBlock from '@/app/components/notion/QuoteBlock';
+import ListItemBlock from '@/app/components/notion/ListItemBlock';
+import { getPostContent, getPostInfo } from '@/app/common/service/notion';
+import {
+  getNumberedListItemIdMap,
+  getNumberedListItemNumber,
+} from '@/app/common/utils/notion';
 
 import type { Metadata } from 'next';
 import type { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
@@ -31,6 +36,8 @@ export default async function PostSlug({
     () => []
   )) as BlockObjectResponse[];
 
+  const numberedListItemIdMap = getNumberedListItemIdMap(content);
+
   // TODOempty
   if (!content.length) {
     return '内容为空';
@@ -52,13 +59,23 @@ export default async function PostSlug({
               /* @ts-expect-error Server Component */
               return <ImageBlock key={block.id} {...block.image} />;
             case 'heading_1':
-              return <HeadingsBlock key={block.id} {...block} />;
             case 'heading_2':
-              return <HeadingsBlock key={block.id} {...block} />;
             case 'heading_3':
               return <HeadingsBlock key={block.id} {...block} />;
             case 'quote':
               return <QuoteBlock key={block.id} {...block.quote} />;
+            case 'bulleted_list_item':
+            case 'numbered_list_item':
+              return (
+                <ListItemBlock
+                  key={block.id}
+                  start={getNumberedListItemNumber(
+                    numberedListItemIdMap,
+                    block.id
+                  )}
+                  {...block}
+                />
+              );
             default:
               return null;
           }

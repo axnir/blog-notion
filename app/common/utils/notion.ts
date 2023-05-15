@@ -1,5 +1,8 @@
 import { PostStatus, PostTitle } from '@/app/common/types/notion';
-import type { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import type {
+  BlockObjectResponse,
+  PageObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints';
 
 type PageObjectProperties = PageObjectResponse['properties'];
 
@@ -89,4 +92,36 @@ export const getPostTitleForPage = (page: PageObjectResponse) => {
   }
 
   return title;
+};
+
+export const getNumberedListItemIdMap = (blocks: BlockObjectResponse[]) => {
+  if (!blocks.length) {
+    return [];
+  }
+  let idx = 0;
+  const result: string[][] = [];
+  const headingTypes = ['heading_1', 'heading_2', 'heading_3'];
+  blocks.forEach((block) => {
+    if (typeof result[idx] !== 'object') {
+      result[idx] = [];
+    }
+    if (headingTypes.includes(block.type) && result[idx].length) {
+      idx++;
+    }
+    if (block.type === 'numbered_list_item') {
+      result[idx].push(block.id);
+    }
+  });
+
+  return result;
+};
+
+export const getNumberedListItemNumber = (map: string[][], blockId: string) => {
+  const group = map.find((g) => g.includes(blockId));
+
+  if (!group) {
+    return;
+  }
+
+  return group.indexOf(blockId) + 1;
 };
